@@ -14,7 +14,6 @@ class CommunityStateMapper extends ClassMapperBase<CommunityState> {
   static CommunityStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = CommunityStateMapper._());
-      CommunityModelMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -29,8 +28,8 @@ class CommunityStateMapper extends ClassMapperBase<CommunityState> {
     opt: true,
     def: false,
   );
-  static List<CommunityModel> _$communities(CommunityState v) => v.communities;
-  static const Field<CommunityState, List<CommunityModel>> _f$communities =
+  static List<CommunityEntity> _$communities(CommunityState v) => v.communities;
+  static const Field<CommunityState, List<CommunityEntity>> _f$communities =
       Field('communities', _$communities, opt: true, def: const []);
 
   @override
@@ -110,11 +109,11 @@ abstract class CommunityStateCopyWith<$R, $In extends CommunityState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
     $R,
-    CommunityModel,
-    CommunityModelCopyWith<$R, CommunityModel, CommunityModel>
+    CommunityEntity,
+    ObjectCopyWith<$R, CommunityEntity, CommunityEntity>
   >
   get communities;
-  $R call({bool? isLoading, List<CommunityModel>? communities});
+  $R call({bool? isLoading, List<CommunityEntity>? communities});
   CommunityStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -131,16 +130,16 @@ class _CommunityStateCopyWithImpl<$R, $Out>
   @override
   ListCopyWith<
     $R,
-    CommunityModel,
-    CommunityModelCopyWith<$R, CommunityModel, CommunityModel>
+    CommunityEntity,
+    ObjectCopyWith<$R, CommunityEntity, CommunityEntity>
   >
   get communities => ListCopyWith(
     $value.communities,
-    (v, t) => v.copyWith.$chain(t),
+    (v, t) => ObjectCopyWith(v, $identity, t),
     (v) => call(communities: v),
   );
   @override
-  $R call({bool? isLoading, List<CommunityModel>? communities}) => $apply(
+  $R call({bool? isLoading, List<CommunityEntity>? communities}) => $apply(
     FieldCopyWithData({
       if (isLoading != null) #isLoading: isLoading,
       if (communities != null) #communities: communities,

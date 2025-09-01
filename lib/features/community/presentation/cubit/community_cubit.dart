@@ -1,10 +1,10 @@
-import 'package:fe_test_ayo/features/community/data/repositories/community_repository.dart';
+import 'package:fe_test_ayo/features/community/domain/repositories/community_repository.dart';
 
 import 'package:fe_test_ayo/features/community/presentation/cubit/community_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CommunityCubit extends Cubit<CommunityState> {
-  final CommunityRepository _communityRepository;
+  final ICommunityRepository _communityRepository;
 
   CommunityCubit(this._communityRepository) : super(CommunityState.initial);
 

@@ -14,7 +14,6 @@ class TournamentStateMapper extends ClassMapperBase<TournamentState> {
   static TournamentStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = TournamentStateMapper._());
-      TournamentModelMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -29,9 +28,9 @@ class TournamentStateMapper extends ClassMapperBase<TournamentState> {
     opt: true,
     def: false,
   );
-  static List<TournamentModel<dynamic>> _$tournaments(TournamentState v) =>
+  static List<TournamentEntity<dynamic>> _$tournaments(TournamentState v) =>
       v.tournaments;
-  static const Field<TournamentState, List<TournamentModel<dynamic>>>
+  static const Field<TournamentState, List<TournamentEntity<dynamic>>>
   _f$tournaments = Field(
     'tournaments',
     _$tournaments,
@@ -116,16 +115,11 @@ abstract class TournamentStateCopyWith<$R, $In extends TournamentState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
   ListCopyWith<
     $R,
-    TournamentModel<dynamic>,
-    TournamentModelCopyWith<
-      $R,
-      TournamentModel<dynamic>,
-      TournamentModel<dynamic>,
-      dynamic
-    >
+    TournamentEntity<dynamic>,
+    ObjectCopyWith<$R, TournamentEntity<dynamic>, TournamentEntity<dynamic>>
   >
   get tournaments;
-  $R call({bool? isLoading, List<TournamentModel<dynamic>>? tournaments});
+  $R call({bool? isLoading, List<TournamentEntity<dynamic>>? tournaments});
   TournamentStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -142,21 +136,16 @@ class _TournamentStateCopyWithImpl<$R, $Out>
   @override
   ListCopyWith<
     $R,
-    TournamentModel<dynamic>,
-    TournamentModelCopyWith<
-      $R,
-      TournamentModel<dynamic>,
-      TournamentModel<dynamic>,
-      dynamic
-    >
+    TournamentEntity<dynamic>,
+    ObjectCopyWith<$R, TournamentEntity<dynamic>, TournamentEntity<dynamic>>
   >
   get tournaments => ListCopyWith(
     $value.tournaments,
-    (v, t) => v.copyWith.$chain(t),
+    (v, t) => ObjectCopyWith(v, $identity, t),
     (v) => call(tournaments: v),
   );
   @override
-  $R call({bool? isLoading, List<TournamentModel<dynamic>>? tournaments}) =>
+  $R call({bool? isLoading, List<TournamentEntity<dynamic>>? tournaments}) =>
       $apply(
         FieldCopyWithData({
           if (isLoading != null) #isLoading: isLoading,

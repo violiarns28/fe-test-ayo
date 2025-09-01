@@ -14,7 +14,6 @@ class UserStateMapper extends ClassMapperBase<UserState> {
   static UserStateMapper ensureInitialized() {
     if (_instance == null) {
       MapperContainer.globals.use(_instance = UserStateMapper._());
-      UserModelMapper.ensureInitialized();
     }
     return _instance!;
   }
@@ -29,8 +28,8 @@ class UserStateMapper extends ClassMapperBase<UserState> {
     opt: true,
     def: false,
   );
-  static List<UserModel> _$users(UserState v) => v.users;
-  static const Field<UserState, List<UserModel>> _f$users = Field(
+  static List<UserEntity> _$users(UserState v) => v.users;
+  static const Field<UserState, List<UserEntity>> _f$users = Field(
     'users',
     _$users,
     opt: true,
@@ -109,9 +108,9 @@ extension UserStateValueCopy<$R, $Out> on ObjectCopyWith<$R, UserState, $Out> {
 
 abstract class UserStateCopyWith<$R, $In extends UserState, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  ListCopyWith<$R, UserModel, UserModelCopyWith<$R, UserModel, UserModel>>
+  ListCopyWith<$R, UserEntity, ObjectCopyWith<$R, UserEntity, UserEntity>>
   get users;
-  $R call({bool? isLoading, List<UserModel>? users});
+  $R call({bool? isLoading, List<UserEntity>? users});
   UserStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -124,14 +123,14 @@ class _UserStateCopyWithImpl<$R, $Out>
   late final ClassMapperBase<UserState> $mapper =
       UserStateMapper.ensureInitialized();
   @override
-  ListCopyWith<$R, UserModel, UserModelCopyWith<$R, UserModel, UserModel>>
+  ListCopyWith<$R, UserEntity, ObjectCopyWith<$R, UserEntity, UserEntity>>
   get users => ListCopyWith(
     $value.users,
-    (v, t) => v.copyWith.$chain(t),
+    (v, t) => ObjectCopyWith(v, $identity, t),
     (v) => call(users: v),
   );
   @override
-  $R call({bool? isLoading, List<UserModel>? users}) => $apply(
+  $R call({bool? isLoading, List<UserEntity>? users}) => $apply(
     FieldCopyWithData({
       if (isLoading != null) #isLoading: isLoading,
       if (users != null) #users: users,
