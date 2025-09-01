@@ -3,15 +3,19 @@ import 'package:fe_test_ayo/features/community/domain/entities/community_entity.
 import 'package:fe_test_ayo/features/community/domain/repositories/community_repository.dart';
 
 class CommunityRepository implements ICommunityRepository {
+  final LocalCommunityDataSource localDataSource;
+
+  CommunityRepository(this.localDataSource);
+
   @override
   Future<List<CommunityEntity>> getAll() {
-    final communityModels = LocalCommunityDataSource().getCommunities();
+    final communityModels = localDataSource.getCommunities();
     return Future.value(communityModels.map((model) => model).toList());
   }
 
   @override
   Future<CommunityEntity> getById(String id) {
-    final communityModel = LocalCommunityDataSource().getCommunityById(id);
+    final communityModel = localDataSource.getCommunityById(id);
     return Future.value(communityModel);
   }
 }
