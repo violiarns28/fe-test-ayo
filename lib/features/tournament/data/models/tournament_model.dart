@@ -7,7 +7,7 @@ part 'tournament_model.mapper.dart';
 @MappableClass()
 class TournamentModel<T> extends TournamentEntity<T>
     with TournamentModelMappable<T> {
-  TournamentModel({
+  const TournamentModel({
     required super.id,
     required super.name,
     required super.sportType,
