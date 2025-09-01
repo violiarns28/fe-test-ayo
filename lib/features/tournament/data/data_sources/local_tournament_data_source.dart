@@ -1,8 +1,8 @@
 import 'package:fe_test_ayo/features/tournament/data/models/tournament_model.dart';
 import 'package:fe_test_ayo/features/tournament/domain/entities/tournament_entity.dart';
 
-class LocalTournamentDataSource {
-  final List<TournamentModel> _tournaments = [
+class LocalTournamentDataSource<T> {
+  final List<TournamentModel<T>> _tournaments = [
     TournamentModel(
       id: 'c7379b7a-712c-4b02-bf76-2f45063e5d24',
       name: 'Spring Championship',
@@ -85,11 +85,11 @@ class LocalTournamentDataSource {
     ),
   ];
 
-  List<TournamentEntity> getAllTournaments() {
+  List<TournamentModel<T>> getAllTournaments() {
     return _tournaments;
   }
 
-  TournamentModel? getTournamentById(String id) {
+  TournamentModel<T>? getTournamentById(String id) {
     try {
       return _tournaments.firstWhere((tournament) => tournament.id == id);
     } catch (e) {
