@@ -37,17 +37,35 @@ class TournamentStateMapper extends ClassMapperBase<TournamentState> {
     opt: true,
     def: const [],
   );
+  static TournamentEntity<dynamic>? _$selectedTournament(TournamentState v) =>
+      v.selectedTournament;
+  static const Field<TournamentState, TournamentEntity<dynamic>>
+  _f$selectedTournament = Field(
+    'selectedTournament',
+    _$selectedTournament,
+    opt: true,
+  );
+  static String? _$errorMessage(TournamentState v) => v.errorMessage;
+  static const Field<TournamentState, String> _f$errorMessage = Field(
+    'errorMessage',
+    _$errorMessage,
+    opt: true,
+  );
 
   @override
   final MappableFields<TournamentState> fields = const {
     #isLoading: _f$isLoading,
     #tournaments: _f$tournaments,
+    #selectedTournament: _f$selectedTournament,
+    #errorMessage: _f$errorMessage,
   };
 
   static TournamentState _instantiate(DecodingData data) {
     return TournamentState(
       isLoading: data.dec(_f$isLoading),
       tournaments: data.dec(_f$tournaments),
+      selectedTournament: data.dec(_f$selectedTournament),
+      errorMessage: data.dec(_f$errorMessage),
     );
   }
 
@@ -119,7 +137,12 @@ abstract class TournamentStateCopyWith<$R, $In extends TournamentState, $Out>
     ObjectCopyWith<$R, TournamentEntity<dynamic>, TournamentEntity<dynamic>>
   >
   get tournaments;
-  $R call({bool? isLoading, List<TournamentEntity<dynamic>>? tournaments});
+  $R call({
+    bool? isLoading,
+    List<TournamentEntity<dynamic>>? tournaments,
+    TournamentEntity<dynamic>? selectedTournament,
+    String? errorMessage,
+  });
   TournamentStateCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(
     Then<$Out2, $R2> t,
   );
@@ -145,17 +168,28 @@ class _TournamentStateCopyWithImpl<$R, $Out>
     (v) => call(tournaments: v),
   );
   @override
-  $R call({bool? isLoading, List<TournamentEntity<dynamic>>? tournaments}) =>
-      $apply(
-        FieldCopyWithData({
-          if (isLoading != null) #isLoading: isLoading,
-          if (tournaments != null) #tournaments: tournaments,
-        }),
-      );
+  $R call({
+    bool? isLoading,
+    List<TournamentEntity<dynamic>>? tournaments,
+    Object? selectedTournament = $none,
+    Object? errorMessage = $none,
+  }) => $apply(
+    FieldCopyWithData({
+      if (isLoading != null) #isLoading: isLoading,
+      if (tournaments != null) #tournaments: tournaments,
+      if (selectedTournament != $none) #selectedTournament: selectedTournament,
+      if (errorMessage != $none) #errorMessage: errorMessage,
+    }),
+  );
   @override
   TournamentState $make(CopyWithData data) => TournamentState(
     isLoading: data.get(#isLoading, or: $value.isLoading),
     tournaments: data.get(#tournaments, or: $value.tournaments),
+    selectedTournament: data.get(
+      #selectedTournament,
+      or: $value.selectedTournament,
+    ),
+    errorMessage: data.get(#errorMessage, or: $value.errorMessage),
   );
 
   @override

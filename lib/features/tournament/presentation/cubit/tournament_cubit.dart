@@ -8,18 +8,44 @@ class TournamentCubit extends Cubit<TournamentState> {
   TournamentCubit(this._tournamentRepository) : super(TournamentState.initial);
 
   Future<void> fetchTournaments() async {
-    emit(state.copyWith(isLoading: true));
-    final tournaments = await _tournamentRepository.getAll();
-    emit(state.copyWith(isLoading: false, tournaments: tournaments));
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+
+    try {
+      final tournaments = await _tournamentRepository.getAll();
+      emit(
+        state.copyWith(
+          isLoading: false,
+          tournaments: tournaments,
+          errorMessage: null,
+        ),
+      );
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
+    }
   }
 
-  void fetchTournamentById(String id) async {
-    emit(state.copyWith(isLoading: true));
+  Future<void> fetchTournamentById(String id) async {
+    emit(state.copyWith(isLoading: true, errorMessage: null));
+
     try {
-      final tournaments = await _tournamentRepository.getById(id);
-      emit(state.copyWith(isLoading: false));
+      final tournament = await _tournamentRepository.getById(id);
+      emit(
+        state.copyWith(
+          isLoading: false,
+          selectedTournament: tournament,
+          errorMessage: null,
+        ),
+      );
     } catch (e) {
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, errorMessage: e.toString()));
     }
+  }
+
+  void clearSelectedTournament() {
+    emit(state.copyWith(selectedTournament: null));
+  }
+
+  void clearError() {
+    emit(state.copyWith(errorMessage: null));
   }
 }

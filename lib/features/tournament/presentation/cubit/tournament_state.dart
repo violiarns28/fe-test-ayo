@@ -7,8 +7,15 @@ part 'tournament_state.mapper.dart';
 class TournamentState with TournamentStateMappable {
   final bool isLoading;
   final List<TournamentEntity> tournaments;
+  final TournamentEntity? selectedTournament;
+  final String? errorMessage;
 
-  const TournamentState({this.isLoading = false, this.tournaments = const []});
+  const TournamentState({
+    this.isLoading = false,
+    this.tournaments = const [],
+    this.selectedTournament,
+    this.errorMessage,
+  });
 
   static const initial = TournamentState();
 }
