@@ -12,4 +12,14 @@ class TournamentCubit extends Cubit<TournamentState> {
     final tournaments = await _tournamentRepository.getAll();
     emit(state.copyWith(isLoading: false, tournaments: tournaments));
   }
+
+  void fetchTournamentById(String id) async {
+    emit(state.copyWith(isLoading: true));
+    try {
+      final tournaments = await _tournamentRepository.getById(id);
+      emit(state.copyWith(isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false));
+    }
+  }
 }
