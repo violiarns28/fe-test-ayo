@@ -130,7 +130,7 @@ class FaqWidget extends StatelessWidget {
                                           ),
                                         ),
                                         child: const Text(
-                                          '+100 pts',
+                                          '+100 Pts',
                                           style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w500,
@@ -158,7 +158,7 @@ class FaqWidget extends StatelessWidget {
                                           ),
                                         ),
                                         child: const Text(
-                                          '+50 pts',
+                                          '+50 Pts',
                                           style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w500,
@@ -186,7 +186,7 @@ class FaqWidget extends StatelessWidget {
                                           ),
                                         ),
                                         child: const Text(
-                                          '-50 pts',
+                                          '-50 Pts',
                                           style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w500,
@@ -245,7 +245,7 @@ class FaqWidget extends StatelessWidget {
                                           ),
                                         ),
                                         child: const Text(
-                                          'n x 5pts',
+                                          'n x 5 Pts',
                                           style: TextStyle(
                                             fontSize: 10,
                                             fontWeight: FontWeight.w500,
