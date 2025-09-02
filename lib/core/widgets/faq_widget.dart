@@ -57,14 +57,22 @@ class FaqWidget extends StatelessWidget {
                               color: Colors.black,
                             ),
                           ),
-                          GestureDetector(
+                          InkWell(
                             onTap: () {
                               Navigator.pop(context);
                               if (onClose != null) {
                                 onClose!();
                               }
                             },
-                            child: const Icon(Icons.close, size: 16),
+                            borderRadius: BorderRadius.circular(20),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              child: Icon(
+                                Icons.close,
+                                size: 20,
+                                color: Colors.black54,
+                              ),
+                            ),
                           ),
                         ],
                       ),
