@@ -3,6 +3,7 @@ import 'package:fe_test_ayo/features/tournament/presentation/cubit/tournament_cu
 import 'package:fe_test_ayo/features/tournament/presentation/cubit/tournament_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -58,10 +59,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   tournament.name,
                                   style: const TextStyle(color: Colors.black),
                                 ),
+                                trailing: const Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 16,
+                                  color: Colors.grey,
+                                ),
                                 tileColor: Colors.grey[50],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
+                                onTap: () {
+                                  context.go('/tournament/${tournament.id}');
+                                },
                               );
                             },
                             separatorBuilder:
