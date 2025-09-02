@@ -23,64 +23,67 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF7A5AF8),
-      body: Column(
-        children: [
-          const FilterDropdownWidget(),
-          const SizedBox(height: 8),
-          Expanded(
-            child: BlocBuilder<TournamentCubit, TournamentState>(
-              builder: (context, state) {
-                return Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(12.0)),
-                  ),
-                  child:
-                      state.tournaments.isEmpty
-                          ? const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(16.0),
-                              child: Text(
-                                'Tidak ada tournament tersedia',
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 16,
+      body: Padding(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          children: [
+            const FilterDropdownWidget(),
+            const SizedBox(height: 8),
+            Expanded(
+              child: BlocBuilder<TournamentCubit, TournamentState>(
+                builder: (context, state) {
+                  return Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                    ),
+                    child:
+                        state.tournaments.isEmpty
+                            ? const Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(16.0),
+                                child: Text(
+                                  'No tournaments available',
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
                                 ),
                               ),
+                            )
+                            : ListView.separated(
+                              padding: const EdgeInsets.all(8.0),
+                              itemCount: state.tournaments.length,
+                              itemBuilder: (context, index) {
+                                final tournament = state.tournaments[index];
+                                return ListTile(
+                                  title: Text(
+                                    tournament.name,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 16,
+                                    color: Colors.grey,
+                                  ),
+                                  tileColor: Colors.grey[50],
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                  onTap: () {
+                                    context.go('/tournament/${tournament.id}');
+                                  },
+                                );
+                              },
+                              separatorBuilder:
+                                  (context, index) => const Divider(),
                             ),
-                          )
-                          : ListView.separated(
-                            padding: const EdgeInsets.all(8.0),
-                            itemCount: state.tournaments.length,
-                            itemBuilder: (context, index) {
-                              final tournament = state.tournaments[index];
-                              return ListTile(
-                                title: Text(
-                                  tournament.name,
-                                  style: const TextStyle(color: Colors.black),
-                                ),
-                                trailing: const Icon(
-                                  Icons.arrow_forward_ios,
-                                  size: 16,
-                                  color: Colors.grey,
-                                ),
-                                tileColor: Colors.grey[50],
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                onTap: () {
-                                  context.go('/tournament/${tournament.id}');
-                                },
-                              );
-                            },
-                            separatorBuilder:
-                                (context, index) => const Divider(),
-                          ),
-                );
-              },
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
