@@ -1,6 +1,10 @@
+import 'package:fe_test_ayo/core/widgets/card.widget.dart';
 import 'package:fe_test_ayo/core/widgets/faq_widget.dart';
+import 'package:fe_test_ayo/core/widgets/filter_dropdown_widget.dart';
+import 'package:fe_test_ayo/core/widgets/periode_filter_widget.dart';
 import 'package:fe_test_ayo/features/tournament/presentation/cubit/tournament_cubit.dart';
 import 'package:fe_test_ayo/features/tournament/presentation/cubit/tournament_state.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,10 +19,30 @@ class TournamentDetailScreen extends StatefulWidget {
 }
 
 class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
+  String selectedPeriod = 'All Time';
+
   @override
   void initState() {
     super.initState();
     context.read<TournamentCubit>().fetchTournamentById(widget.tournamentId);
+  }
+
+  void _showPeriodBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (BuildContext context) {
+        return PeriodFilterBottomSheet(
+          selectedPeriod: selectedPeriod,
+          onPeriodSelected: (period) {
+            setState(() {
+              selectedPeriod = period;
+            });
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -36,7 +60,7 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
         }
 
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Color(0xFF7A5AF8),
           appBar: AppBar(
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,25 +71,28 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                   onPressed: () => context.go('/'),
                 ),
                 Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          appBarTitle,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            height: 1.375,
+                  child: GestureDetector(
+                    onTap: _showPeriodBottomSheet,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            appBarTitle,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              height: 1.375,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
                           ),
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      const Icon(Icons.arrow_drop_down_circle, size: 16),
-                    ],
+                        const SizedBox(width: 8),
+                        const Icon(Icons.arrow_drop_down_circle, size: 16),
+                      ],
+                    ),
                   ),
                 ),
                 // FAQ Widget
@@ -82,27 +109,21 @@ class _TournamentDetailScreenState extends State<TournamentDetailScreen> {
                   child: CircularProgressIndicator(color: Color(0xFF7A5AF8)),
                 );
               }
-              final tournament = state.tournaments.firstWhere(
-                (t) => t.id == widget.tournamentId,
-                orElse: () => throw Exception('Tournament not found'),
-              );
               return SingleChildScrollView(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Name: ${tournament.name}',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    const SizedBox(height: 16),
+                    Row(
+                      children: [
+                        Expanded(child: FilterDropdownWidget()),
+                        const SizedBox(width: 16),
+                        Expanded(child: FilterDropdownWidget()),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'ID: ${tournament.id}',
-                      style: const TextStyle(fontSize: 16),
-                    ),
+                    const SizedBox(height: 16),
+                    const CardWidget(),
                   ],
                 ),
               );
